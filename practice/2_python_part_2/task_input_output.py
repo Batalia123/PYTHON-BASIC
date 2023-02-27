@@ -18,6 +18,10 @@ Examples:
 
 
 def read_numbers(n: int) -> str:
-    ...
+    input_values = [input() for _ in range(n)]
+    flag = True
+    output_values = [int(i) for i in input_values if i.isnumeric()]
+    #return input_values[1].isnumeric()
+    return "Avg: {}".  format(round(sum(output_values) / len(output_values), 2)) if output_values else "No Numbers entered"
 
 

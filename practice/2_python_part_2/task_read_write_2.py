@@ -21,4 +21,8 @@ def generate_words(n=20):
         word = ''.join(random.choices(string.ascii_lowercase, k=random.randint(3, 10)))
         words.append(word)
 
-    return words
+    with open("files/file1.txt", "w") as f1, open("files/file2.txt", "w") as f2:
+        f1.write("\\".join(words))
+        f2.write(",".join(words))
+
+generate_words()
