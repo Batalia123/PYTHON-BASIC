@@ -31,4 +31,53 @@ Links:
     - beautiful soup docs: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
     - lxml docs: https://lxml.de/
 """
+import requests
+import ssl
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from math import ceil
+
+ssl._create_default_https_context = ssl._create_unverified_context
+#url = "http://finance.yahoo.com/most-active"
+url = "https://finance.yahoo.com/quote/BLK/holders?p=BLK"
+#response = requests.get(url)
+#page = urlopen(url)
+#print(page)
+response = requests.get(url)
+soup = BeautifulSoup(response.content, "lxml")
+
+
+sheet_attributes ={"5 stocks with most youngest CEOs":["Name       ", "Code","Country      ","Employees" ,"CEO Name                            ","CEO Year Born"], "10 stocks with best 52-Week Change":["Name       ", "Code","52-Week Change", "Total Cash"], "10 largest holds of Blackrock Inc":["Name       ", "Code","Shares", "Date Reported", "% Out", "Value  "]}
+
+#print(len("==================================== 5 stocks with most youngest CEOs ==================================="))
+
+with open("sheets.txt", "w") as sheets:
+    for sh in ["5 stocks with most youngest CEOs", "10 stocks with best 52-Week Change", "10 largest holds of Blackrock Inc"]:
+        sheet_width = sum(len(i)+3 for i in sheet_attributes[sh]) + 1
+        #print(sheet_width)
+        sheets.write( "="*int( (sheet_width-2-len(sh))/2 ) + " " + sh + " " + "="*ceil( ( (sheet_width-2-len(sh))/2 ) ) + "\n")
+        sheets.write("-"*sheet_width + "\n")
+
+        for att in sheet_attributes[sh]:
+            sheets.write("| " + att + " ")
+
+        sheets.write("|\n")
+        sheets.write("\n")
+
+with open("active_stocks.html", "w") as f:
+    f.write(response.text)
+with open("active_stocks.html", "r") as f:
+    print(f.read())
+
+with open("active_stocks.html") as html_file:
+    soup = BeautifulSoup(html_file, 'lxml')
+    match = soup.find(string='yahoo')
+    print(match)
+
+with open("sheets.txt", "r") as sh:
+    #print(sh.read())
+    pass
+
+
+
 
