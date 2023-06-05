@@ -42,7 +42,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 url = "https://finance.yahoo.com/quote/BLK/holders?p=BLK"
 #response = requests.get(url)
 #page = urlopen(url)
-#print(page)
+#print(page)s
 response = requests.get(url)
 soup = BeautifulSoup(response.content, "lxml")
 
