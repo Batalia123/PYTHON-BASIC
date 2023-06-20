@@ -36,48 +36,56 @@ import ssl
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from math import ceil
+#SQLite
 
-ssl._create_default_https_context = ssl._create_unverified_context
-#url = "http://finance.yahoo.com/most-active"
-url = "https://finance.yahoo.com/quote/BLK/holders?p=BLK"
-#response = requests.get(url)
-#page = urlopen(url)
-#print(page)s
-response = requests.get(url)
-soup = BeautifulSoup(response.content, "lxml")
-
-
-sheet_attributes ={"5 stocks with most youngest CEOs":["Name       ", "Code","Country      ","Employees" ,"CEO Name                            ","CEO Year Born"], "10 stocks with best 52-Week Change":["Name       ", "Code","52-Week Change", "Total Cash"], "10 largest holds of Blackrock Inc":["Name       ", "Code","Shares", "Date Reported", "% Out", "Value  "]}
-
-#print(len("==================================== 5 stocks with most youngest CEOs ==================================="))
-
-with open("sheets.txt", "w") as sheets:
-    for sh in ["5 stocks with most youngest CEOs", "10 stocks with best 52-Week Change", "10 largest holds of Blackrock Inc"]:
-        sheet_width = sum(len(i)+3 for i in sheet_attributes[sh]) + 1
-        #print(sheet_width)
-        sheets.write( "="*int( (sheet_width-2-len(sh))/2 ) + " " + sh + " " + "="*ceil( ( (sheet_width-2-len(sh))/2 ) ) + "\n")
-        sheets.write("-"*sheet_width + "\n")
-
-        for att in sheet_attributes[sh]:
-            sheets.write("| " + att + " ")
-
-        sheets.write("|\n")
-        sheets.write("\n")
-
-with open("active_stocks.html", "w") as f:
-    f.write(response.text)
-with open("active_stocks.html", "r") as f:
-    print(f.read())
-
-with open("active_stocks.html") as html_file:
-    soup = BeautifulSoup(html_file, 'lxml')
-    match = soup.find(string='yahoo')
-    print(match)
-
-with open("sheets.txt", "r") as sh:
-    #print(sh.read())
-    pass
+#ssl._create_default_https_context = ssl._create_unverified_context
 
 
 
 
+class HolderScraper:
+    def __init__(self, url):
+        self.url = url
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (X11; OpenBSD i386) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
+        }
+        self.response = None
+        self.soup = None
+        self.institutional_ranking = None
+        self.mutual_rating = None
+        self.all_holders = None
+        self.sorted_all_holders = None
+
+    def fetch_data(self):
+        self.response = requests.get(self.url, headers=self.headers)
+        self.soup = BeautifulSoup(self.response.content, "lxml")
+
+    def scrape_institutional_holders(self):
+        institutional_holders = self.soup.find_all(['tbody'])[1]
+        keys = [institutional_holders.find_all('td')[i*5].get_text()[:-1] for i in range(10)]
+        values = [institutional_holders.find_all('td')[i*5+3].get_text()[:-1] for i in range(10)]
+        self.institutional_ranking = dict(zip(keys, values))
+
+    def scrape_mutual_holders(self):
+        mutual_holders = self.soup.find_all(['tbody'])[2]
+        keys = [mutual_holders.find_all('td')[i*5].get_text()[:-1] for i in range(10)]
+        values = [mutual_holders.find_all('td')[i*5+3].get_text()[:-1] for i in range(10)]
+        self.mutual_rating = dict(zip(keys, values))
+
+    def combine_holders(self):
+        self.all_holders = {**self.institutional_ranking, **self.mutual_rating}
+        self.sorted_all_holders = sorted(self.all_holders.items(), key=lambda kv: kv[1], reverse=True)
+
+    def print_top_holders(self):
+        print("10 largest holds of Blackrock Inc:")
+        for holder, rating in self.sorted_all_holders[:10]:
+            print(f"{holder}: {rating}")
+
+# Usage example
+url = 'https://finance.yahoo.com/quote/BLK/holders?p=BLK'
+scraper = HolderScraper(url)
+scraper.fetch_data()
+scraper.scrape_institutional_holders()
+scraper.scrape_mutual_holders()
+scraper.combine_holders()
+scraper.print_top_holders()
