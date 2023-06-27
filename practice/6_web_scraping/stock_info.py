@@ -32,10 +32,8 @@ Links:
     - lxml docs: https://lxml.de/
 """
 import requests
-import ssl
-from urllib.request import urlopen
 from bs4 import BeautifulSoup
-from math import ceil
+import re
 #SQLite
 
 #ssl._create_default_https_context = ssl._create_unverified_context
@@ -55,10 +53,40 @@ class HolderScraper:
         self.mutual_rating = None
         self.all_holders = None
         self.sorted_all_holders = None
+        self.yearly_52_week_change = None
 
     def fetch_data(self):
         self.response = requests.get(self.url, headers=self.headers)
         self.soup = BeautifulSoup(self.response.content, "lxml")
+        #print(self.soup)
+
+    def scrape_symbols(self):
+        links = self.soup.find_all('a', attrs={'data-test': True})
+        symbols = [link['href'] for link in links]
+        symbols = [ re.findall(r'(p=\D*)', symbol)[0][2:] for symbol in symbols ]
+        values = []
+
+        for company_symbol in symbols:
+            print(company_url := f'https://finance.yahoo.com/quote/{company_symbol}/key-statistics?p={company_symbol}')
+            content = requests.get(company_url, headers=self.headers).content
+            new_soup = BeautifulSoup(content, 'lxml')
+
+            company_name = new_soup.find('h1').get_text()
+
+            main_id = "Col1-0-KeyStatistics-Proxy"
+            metric_value = new_soup.find(id=main_id).find_all('td')[21].get_text()[:-1]
+
+            total_cash = new_soup.find(id=main_id).find_all('td')[105].get_text()
+
+            values.append(
+                (company_name, company_symbol, float(metric_value), total_cash)
+            )
+
+        self.yearly_52_week_change = sorted(values, key=lambda x: x[2], reverse=True)
+
+        # Top 10 companies by this metric
+        for item in self.yearly_52_week_change[:10]:
+            print(item)
 
     def scrape_institutional_holders(self):
         institutional_holders = self.soup.find_all(['tbody'])[1]
@@ -81,11 +109,16 @@ class HolderScraper:
         for holder, rating in self.sorted_all_holders[:10]:
             print(f"{holder}: {rating}")
 
-# Usage example
-url = 'https://finance.yahoo.com/quote/BLK/holders?p=BLK'
+
+'''url = 'https://finance.yahoo.com/quote/BLK/holders?p=BLK'
 scraper = HolderScraper(url)
 scraper.fetch_data()
 scraper.scrape_institutional_holders()
 scraper.scrape_mutual_holders()
 scraper.combine_holders()
-scraper.print_top_holders()
+scraper.print_top_holders()'''
+
+url = "https://finance.yahoo.com/most-active"
+scraper = HolderScraper(url)
+scraper.fetch_data()
+scraper.scrape_symbols()
