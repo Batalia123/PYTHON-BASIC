@@ -35,11 +35,6 @@ import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 import re
-#SQLite
-
-#ssl._create_default_https_context = ssl._create_unverified_context
-
-
 
 
 class HolderScraper:
@@ -50,6 +45,7 @@ class HolderScraper:
         }
         self.response = None
         self.soup = None
+        self.symbols = None
         self.institutional_ranking = None
         self.mutual_rating = None
         self.all_holders = None
@@ -60,70 +56,69 @@ class HolderScraper:
     def fetch_data(self):
         self.response = requests.get(self.url, headers=self.headers)
         self.soup = BeautifulSoup(self.response.content, "lxml")
-        #print(self.soup)
+        # print(self.soup)
 
     def scrape_symbols(self):
         links = self.soup.find_all('a', attrs={'data-test': True})
-        symbols = [link['href'] for link in links]
-        symbols = [ re.findall(r'(p=\D*)', symbol)[0][2:] for symbol in symbols ]
-        values = []
+        self.symbols = [link['href'] for link in links]
+        self.symbols = [re.findall(r'(p=\D*)', symbol)[0][2:] for symbol in self.symbols]
+        # print(symbols)
 
-        #print(len(links))
-        #print(len(symbols))
-
-        for company_symbol in symbols:
+    def scrape_52_week_change(self):
+        self.yearly_52_week_change = {symbol: None for symbol in self.symbols}
+        for company_symbol in self.symbols:
             company_url = f'https://finance.yahoo.com/quote/{company_symbol}/key-statistics?p={company_symbol}'
             content = requests.get(company_url, headers=self.headers).content
             new_soup = BeautifulSoup(content, 'lxml')
 
             company_name = new_soup.find('h1').get_text()
+            index = company_name.find('(')
+            company_name = company_name[:index - 1]
 
             main_id = "Col1-0-KeyStatistics-Proxy"
             metric_value = new_soup.find(id=main_id).find_all('td')[21].get_text()[:-1]
 
+            #metric_value = new_soup.find(id=main_id)
+            #print(company_symbol)
+            #print(metric_value)
+            # //*[@id="Col1-0-KeyStatistics-Proxy"]/section/div[2]/div[2]/div/div[1]/div/div/table/tbody/tr[2]/td[2]
             total_cash = new_soup.find(id=main_id).find_all('td')[105].get_text()
+            list = [company_name, metric_value, total_cash]
+            self.yearly_52_week_change[company_symbol] = list
 
 
-            if metric_value[0] != 'N':
-                values.append(
-                    (company_name, company_symbol, float(metric_value), total_cash)
-                )
-            else:
-                values.append(
-                    (company_name, company_symbol, -100, total_cash)
-                )
+    def sort_52_week_change(self):
+        self.yearly_52_week_change = sorted(self.yearly_52_week_change.items(), key=lambda kv: kv[1][1], reverse=True)[:10]
+        print(self.yearly_52_week_change)
 
-        self.yearly_52_week_change = sorted(values, key=lambda x: x[2], reverse=True)
-
-        #print(symbols)
-        '''values = []
-        for symbol in symbols:
-            profile_url =  f'https://finance.yahoo.com/quote/{symbol}/profile?p={symbol}'
-            #print(profile_url)
+    def scrape_youngest_CEOs(self):
+        self.youngest_CEOs = {symbol: None for symbol in self.symbols}
+        for symbol in self.symbols:
+            profile_url = f'https://finance.yahoo.com/quote/{symbol}/profile?p={symbol}'
             content = requests.get(profile_url, headers=self.headers).content
             new_soup = BeautifulSoup(content, 'lxml')
-            find = re.compile(r"^([^(]*)*")
             main_id = "Col1-0-Profile-Proxy"
-            metric_value = new_soup.find(id=main_id).find_all('td')[4].get_text()[:]
+            year = new_soup.find(id=main_id).find_all('td')[4].get_text()[:]
+            # print(new_soup.find(id=main_id).find_all('td')[9].get_text()[:])
             company_name = new_soup.find('h1').get_text()
-            values.append(
-                (company_name, symbol, int(metric_value))
-            )
-            print(values[-1])
-            #company_zip_code = new_soup.find_all('div')[0].get_text()
-            ## //*[@id="Col1-0-Profile-Proxy"]/section/div[1]/div/div/p[1]/text()[2]
-            # //*[@id="quote-header-info"]/div[2]/div[1]/div[1]/h1
+            index = company_name.find('(')
+            company_name = company_name[:index - 1]
+            spans = new_soup.find(id=main_id).find('section').find('section').find('table')
+            ceo_name = spans.find_all('span', {'class': ''})[5].text
+            lines = str(new_soup.find('div', id='Col1-0-Profile-Proxy').find('section').find('div').find('div').find(
+                'div').find('p'))
+            country = str(re.sub(r'<a class.*', '', lines)).split('<br/>')[-2]
 
-        '''
+            employee_number = new_soup.find('div', id='Col1-0-Profile-Proxy').find('section').find('div').find('div').find('div').find_all('p')[1].find_all('span')[-1].text
+            list = [company_name, country, employee_number, ceo_name, year]
+            self.youngest_CEOs[symbol] = list
 
-        # Top 10 companies by this metric
-        #for item in self.yearly_52_week_change[:10]:
-            #print(item)
-
-        #print(symbols)
+    def sort_CEOs(self):
+        self.youngest_CEOs = sorted(self.youngest_CEOs.items(), key=lambda kv: kv[1][-1], reverse=True)[:10]
+        print(self.youngest_CEOs)
 
     def scrape_institutional_holders(self):
-        institutional_holders = self.soup.find_all(['tbody'])[1]
+        institutional_holders = self.soup.find_all(['tbody'])[2]
         rows = [
             [
                 td.get_text() for td in institutional_holders.find_all('td')[i * 5:(i + 1) * 5]
@@ -132,6 +127,7 @@ class HolderScraper:
         #keys = [institutional_holders.find_all('td')[i*5].get_text() for i in range(10)] #MOD
         #values = [institutional_holders.find_all('td')[i*5+3].get_text()[:-1] for i in range(10)]
         result = {row[0]: row[1:] for row in rows}
+
         for key in result:
             result[key][0] = result[key][0].replace(",", "")
             result[key][1] = datetime.strptime(result[key][1], '%b %d, %Y').date().isoformat()
@@ -158,40 +154,19 @@ class HolderScraper:
             result[key].insert(0, "TODO Company Code")
         self.mutual_rating = result
 
-
-    def combine_holders(self):
+    def sort_combine_holders(self):
         self.all_holders = {**self.institutional_ranking, **self.mutual_rating}
-        self.sorted_all_holders = sorted(self.all_holders.items(), key=lambda kv: kv[1][2], reverse=True)
+        self.sorted_all_holders = sorted(self.all_holders.items(), key=lambda kv: kv[1][2], reverse=True)[:10]
 
     def print_top_holders(self):
         print("10 largest holds of Blackrock Inc:")
         for item in self.sorted_all_holders[:10]:
-            print(item)
-            #print(f"{holder}: {rating}")
-
-    def save_top_holders(self):
-        with open('top_holders.txt') as f:
-            f.write()
-
-    '''def print_top_52_week_change(self):
-        print("10 companies with greatest 52-week change:")
-        for holder, rating in self.yearly_52_week_change[:10]:
-            print(f"{company_name}: {}")'''
+            print(type(item))
 
 
-url = 'https://finance.yahoo.com/quote/BLK/holders?p=BLK'
+url = 'https://finance.yahoo.com/most-active'
 scraper = HolderScraper(url)
 scraper.fetch_data()
-scraper.scrape_institutional_holders()
-scraper.scrape_mutual_holders()
-scraper.combine_holders()
-scraper.print_top_holders()
-
-
-
-'''url = "https://finance.yahoo.com/most-active"
-scraper = HolderScraper(url)
-scraper.fetch_data()
-scraper.scrape_symbols()'''
-
-# //*[@id="Col1-0-Profile-Proxy"]/section/section[1]/table/tbody/tr[1]/td[5]/span
+scraper.scrape_symbols()
+scraper.scrape_52_week_change()
+scraper.sort_52_week_change()
