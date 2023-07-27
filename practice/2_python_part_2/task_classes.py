@@ -25,30 +25,16 @@ Methods:
     Note that this method doesn't need object itself
 PEP8 comply strictly.
 """
-import datetime
-
-import self as self
-
-
-class Teacher:
-    def __init__(self, last_name, first_name):
-        self.last_name  = last_name
-        self.first_name = first_name
-    def create_homework(self, task_text, deadline):
-        hw = Homework(task_text, deadline)
-        return hw
-
+from datetime import datetime, timedelta
 
 class Homework:
-    is_active = True
-    def __init__(self, task_text, number_of_days):
-        self.text = task_text
-        self.created = datetime.datetime.now()
-        self.deadline = datetime.timedelta(days=number_of_days)
+    def __init__(self, text, days_to_complete):
+        self.text = text
+        self.deadline = datetime.now() + timedelta(days=days_to_complete)
+        self.created = datetime.now()
+
     def is_active(self):
-        return is_active
-
-
+        return datetime.now() <= self.deadline
 
 class Student:
     def __init__(self, last_name, first_name):
@@ -56,11 +42,21 @@ class Student:
         self.first_name = first_name
 
     def do_homework(self, homework):
-        if homework.is_active:
-            homework.is_active = False
+        if homework.is_active():
             return homework
-        print("You are late")
-        return None
+        else:
+            print("You are late")
+            return None
+
+class Teacher:
+    def __init__(self, last_name, first_name):
+        self.last_name = last_name
+        self.first_name = first_name
+
+    @staticmethod
+    def create_homework(text, days_to_complete):
+        return Homework(text, days_to_complete)
+
 
 if __name__ == '__main__':
     teacher = Teacher('Dmitry', 'Orlyakov')
