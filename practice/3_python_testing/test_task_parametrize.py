@@ -11,6 +11,8 @@ Task:
 """
 
 
+
+
 def fibonacci_1(n):
     a, b = 0, 1
     for _ in range(n-1):
@@ -18,8 +20,16 @@ def fibonacci_1(n):
     return b
 
 
+
 def fibonacci_2(n):
     fibo = [0, 1]
     for i in range(1, n+1):
         fibo.append(fibo[i-1] + fibo[i-2])
     return fibo[n]
+
+
+import pytest
+
+@pytest.mark.parametrize('test_input', [n for n in range(1, 10)])
+def test_fibonacci_1(test_input):
+    assert fibonacci_1(test_input) == fibonacci_1(test_input)
