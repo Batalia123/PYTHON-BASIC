@@ -16,20 +16,21 @@ Example:
 
 import os
 
-directory = 'files'
-path = 'files/file_1.txt'
-values = []
-i = 1
-for filename in os.listdir(directory):
-    with open(path) as f:
-        values.append(f.read())
-        print(path)
-        i = i + 1
-        if(i==21):
-            break
-        path = path[:11] + str(i) + '.txt'
 
-with open('files/result.txt', "w") as r:
-    for i in values[:-1]:
-        r.write(i + ", ")
-    r.write(values[-1])
+
+def read_from_file(directory, prefix):
+    values = []
+    for i in range(1, 20):
+        filename = f'{prefix}{i}.txt'
+        path = os.path.join(directory, filename)
+        with open(path) as f:
+            values.append(f.read())
+    return values
+
+
+
+def write_to_file(values):
+    with open('files/result.txt', "w") as r:
+        r.write(", ".join(values))
+
+
