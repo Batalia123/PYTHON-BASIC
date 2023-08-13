@@ -27,7 +27,6 @@ def test_read_write_2_little():
 
 def test_read_write_2_more():
     with tempfile.TemporaryDirectory() as tmpdirname:
-        print('created temporary directory', tmpdirname)
         words = random_words()
         generate_words(words, 200, tmpdirname)
 
