@@ -1,0 +1,6 @@
+{
+  "product_name": "str:rand",
+  "category": "str:['electronics', 'clothing', 'home', 'sports']",
+  "brand": "str:rand",
+  "price": "float:rand(10.0, 1000.0)"
+}
