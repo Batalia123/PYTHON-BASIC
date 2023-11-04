@@ -29,4 +29,4 @@ def test_generate_records_with_different_data_schemas(data_schema):
         generate_records(args_from_input, args_dict)
 
 if __name__ == '__main__':
-    print(__file__)
+    pytest.main()

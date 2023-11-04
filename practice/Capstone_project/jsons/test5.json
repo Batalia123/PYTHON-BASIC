@@ -1,0 +1,6 @@
+{
+  "val1": "int:rand",
+  "val2": "int:rand(1, 3)",
+  "val3": "int:1",
+  "val4": "int:"
+}

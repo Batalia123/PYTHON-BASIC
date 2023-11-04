@@ -2,5 +2,5 @@
   "employee_id": "int:rand(1000, 9999)",
   "employee_name": "str:rand",
   "department": "str:['HR', 'Finance', 'Marketing', 'Operations']",
-  "salary": "float:rand(30000.0, 100000.0)"
+  "salary": "int:rand(30000, 100000)"
 }
