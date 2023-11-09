@@ -1,0 +1,35 @@
+INFO:root:Starting to get the parameters
+ERROR:root:file_count can't be negative, setting it to 0
+INFO:root:Parameters fetched
+INFO:root:Starting to clear the output directory
+INFO:root:Output directory cleared
+INFO:root:Number of processes to create the output files 1
+INFO:root:Starting to get the parameters
+ERROR:root:file_count can't be negative, setting it to 0
+INFO:root:Parameters fetched
+INFO:root:Starting to clear the output directory
+INFO:root:Output directory cleared
+INFO:root:Number of processes to create the output files = 1
+INFO:root:Number of file is 0, writing output to terminal
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Starting to clear the output directory
+INFO:root:Output directory cleared
+INFO:root:Number of file is 1
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Starting to clear the output directory
+INFO:root:Output directory cleared
+INFO:root:Number of file is 1
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Starting to clear the output directory
+INFO:root:Output directory cleared
+INFO:root:Number of file is 1
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
