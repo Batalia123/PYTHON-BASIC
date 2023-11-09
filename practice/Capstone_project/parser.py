@@ -30,9 +30,9 @@ def load_schema(data_schema_from_input):
             return json.load(json_file)
     return json.loads(data_schema_from_input)
 
-def generate_single_record(args_dict):
+def generate_single_record(schema_dict):
     generated_test = dict()
-    for key, value in args_dict.items():
+    for key, value in schema_dict.items():
         type_list = value.split(':')
 
         if type_list[0] == 'str':
@@ -59,15 +59,25 @@ def generate_single_record(args_dict):
                 generated_test[key] = random.randint(0, 1000)
             elif type_list[1][0] == '[':
                 choices = type_list[1][1:-1].split(',')
-                generated_test[key] = int(random.choice(choices))
+                try:
+                    generated_test[key] = int(random.choice(choices))
+                except ValueError:
+                    logging.error(f"{type_list[1]} could not be converted to string")
             else:
-                generated_test[key] = int(type_list[1])
+                try:
+                    generated_test[key] = int(type_list[1])
+                except ValueError:
+                    logging.error(f"{type_list[1]} could not be converted to string")
         elif type_list[0] == 'timestamp':
+            if type_list[1]:
+                logging.warning("Timestamp does not support any values and it will be ignored")
+            if type_list[1][:5] == 'rand(':
+                logging.error("random value within bounds can't be timestamp")
             generated_test[key] = time.time()
         
     return generated_test
 
-def create_file(path_to_save_files, file_name, line_count, prefix, start, end, args_dict):
+def create_file(path_to_save_files, file_name, line_count, prefix, start, end, schema_dict):
     for file in range(start, end):
         if prefix == 'count':
             complete_name = os.path.join(path_to_save_files, f"{file_name}{file + 1}.json")
@@ -80,7 +90,7 @@ def create_file(path_to_save_files, file_name, line_count, prefix, start, end, a
 
         with open(complete_name, "w") as f:
             for _ in range(int(line_count)):
-                content = json.dumps(generate_single_record(args_dict), indent=4)
+                content = json.dumps(generate_single_record(schema_dict), indent=4)
                 f.write(content + '\n')
                 print(content)
 
@@ -93,7 +103,7 @@ def clear_output_directory(path_to_save_files, file_name):
             file_path = os.path.join(path_to_save_files, file)
             os.remove(file_path)
 
-def generate_records(args):
+def generate_records(args, schema_dict):
     logging.info('Starting to get the parameters')
     prefix = args['file_prefix']
     file_count = max(0, int(args['file_count']))
@@ -113,7 +123,7 @@ def generate_records(args):
     if file_count == 0:
         logging.info("Writing output to terminal")
         for _ in range(int(line_count)):
-            content = json.dumps(generate_single_record(args_dict), indent=4)
+            content = json.dumps(generate_single_record(schema_dict), indent=4)
             print(content)
         logging.info("Output generated")
         return
@@ -127,7 +137,7 @@ def generate_records(args):
         end = (i + 1) * files_per_process if i < file_count - 1 else file_count
 
         process = multiprocessing.Process(target=create_file,
-                                          args=(path_to_save_files, file_name, line_count, prefix, start, end, args_dict))
+                                          args=(path_to_save_files, file_name, line_count, prefix, start, end, schema_dict))
         processes.append(process)
         process.start()
 
@@ -146,9 +156,9 @@ if __name__ == '__main__':
     args.update({k: v for k, v in args_from_input.items() if v is not None})
 
     data_schema_from_input = args['data_schema']  # Pass the JSON string as an argument
-    args_dict = load_schema(data_schema_from_input)
+    schema_dict = load_schema(data_schema_from_input)
 
     for k, v in args.items():
         print(f"{k} : {v}")
 
-    generate_records(args)
+    generate_records(args, schema_dict)
