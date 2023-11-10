@@ -1,3 +1,18 @@
+import argparse
+import json
+import os
+import sys
+import multiprocessing
+import logging
+import random
+import time
+import uuid
+import re
+import configparser
+import logging
+
+
+
 def parse_arguments():
     parser = argparse.ArgumentParser(prog='test data generator',
                                      description='generate test data based on the provided schema')
@@ -104,8 +119,11 @@ def generate_records(args, schema_dict):
     prefix = args['prefix']
     file_count = max(0, int(args['file_count']))
     path_to_save_files = args['path_to_save_files']
+    if not os.path.isdir(path_to_save_files):
+        logging.error('Path to save files doesn\'t exist' )
+        sys.exit()
     file_name = args['file_name']
-    process_count = max(1, int(args['multiprocessing']))
+    process_count = min(os.cpu_count(), max(1, int(args['multiprocessing'])))
     line_count = int(args['data_lines'])
     files_per_process = file_count // process_count
     logging.info('Parameters fetched')
@@ -142,3 +160,19 @@ def generate_records(args, schema_dict):
         process.join()
 
     logging.info("Output generated")
+
+
+def set_up_parameters():
+    logging.basicConfig(filename='logging.txt', level=logging.INFO)
+
+    config = configparser.ConfigParser()
+    config.read('default.ini')
+    defaults = config['default']
+
+    args_from_input = vars(parse_arguments())
+    args = dict(defaults)
+    args.update({k: v for k, v in args_from_input.items() if v is not None})
+
+    data_schema_from_input = args['data_schema']
+    schema_dict = load_schema(data_schema_from_input)
+    return args, schema_dict

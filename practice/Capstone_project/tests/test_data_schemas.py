@@ -1,7 +1,7 @@
-import sys
-import os
 import pytest
-from src.parser import generate_records, load_schema
+import sys
+sys.path.insert(1, '..')
+from src.utils import generate_records, load_schema
 
 data_schemas = ['../jsons/test' + str(i) + '.json' for i in range(1, 5)]
 

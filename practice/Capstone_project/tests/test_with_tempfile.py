@@ -1,6 +1,7 @@
-import sys
 import pytest
-from src.parser import generate_records, load_schema
+import sys
+sys.path.insert(1, '..')
+from src.utils import generate_records, load_schema
 
 
 data_schemas_str = [

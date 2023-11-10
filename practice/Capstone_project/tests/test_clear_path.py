@@ -1,7 +1,8 @@
-import sys
 import os
 import pytest
-from src.parser import clear_output_directory
+import sys
+sys.path.insert(1, '..')
+from src.utils import clear_output_directory
 
 
 

@@ -298,3 +298,92 @@ INFO:root:Starting to create files
 INFO:root:Starting to create files
 INFO:root:Starting to create files
 INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+ERROR:root:Path to save files doesn't exist
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated

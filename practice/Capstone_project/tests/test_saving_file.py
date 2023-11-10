@@ -1,7 +1,8 @@
 import os
-import sys
 import pytest
-from src.parser import create_file, clear_output_directory
+import sys
+sys.path.insert(1, '..')
+from src.utils import create_file, clear_output_directory
 
 
 def test_file_saving(tmpdir):

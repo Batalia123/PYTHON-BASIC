@@ -1,11 +1,9 @@
-import sys
-
 import pytest
 import os
-
+import sys
 sys.path.insert(1, '..')
+from src.utils import generate_records, load_schema, clear_output_directory
 
-from src.parser import generate_records, load_schema, clear_output_directory
 
 data_schemas_str = [
     """
