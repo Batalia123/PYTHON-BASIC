@@ -1,34 +1,27 @@
-import argparse
-import json
-import os
-import multiprocessing
-import configparser
-import logging
-import random
-import time
-import uuid
-import re
-
-logging.basicConfig(filename='logging3.txt', level=logging.INFO)
-
 def parse_arguments():
-    parser = argparse.ArgumentParser(prog='test data generator', description='generate test data based on the provided schema')
+    parser = argparse.ArgumentParser(prog='test data generator',
+                                     description='generate test data based on the provided schema')
     parser.add_argument('--data_schema', type=str, dest='data_schema', help='pass dataschema guidelines or location')
     parser.add_argument('--data_lines', dest='data_lines', type=int, help='pass number of lines in each file')
     parser.add_argument('--file_count', dest='file_count', type=int, help='pass number of output files')
     parser.add_argument('--file_name', dest='file_name', type=str, help='pass template output file name')
-    parser.add_argument('--file_prefix', type=str, choices=['count', 'random', 'uuid'], dest='file_prefix', help='pass file prefix when more than one file')
-    parser.add_argument('--path_to_save_files', dest='path_to_save_files', type=str, help='pass path to save output files')
+    parser.add_argument('--prefix', type=str, choices=['count', 'random', 'uuid'], dest='prefix',
+                        help='pass file prefix when more than one file')
+    parser.add_argument('--path_to_save_files', dest='path_to_save_files', type=str,
+                        help='pass path to save output files')
     parser.add_argument('--clear_path', action='store_true')
-    parser.add_argument('--multiprocessing', type=int, dest='multiprocessing', help='pass number of processes used to create files')
+    parser.add_argument('--multiprocessing', type=int, dest='multiprocessing',
+                        help='pass number of processes used to create files')
 
     return parser.parse_args()
+
 
 def load_schema(data_schema_from_input):
     if data_schema_from_input[-4:] == 'json':
         with open(data_schema_from_input) as json_file:
             return json.load(json_file)
     return json.loads(data_schema_from_input)
+
 
 def generate_single_record(schema_dict):
     generated_test = dict()
@@ -74,8 +67,9 @@ def generate_single_record(schema_dict):
             if type_list[1][:5] == 'rand(':
                 logging.error("random value within bounds can't be timestamp")
             generated_test[key] = time.time()
-        
+
     return generated_test
+
 
 def create_file(path_to_save_files, file_name, line_count, prefix, start, end, schema_dict):
     for file in range(start, end):
@@ -96,6 +90,7 @@ def create_file(path_to_save_files, file_name, line_count, prefix, start, end, s
 
         logging.info(f"File {complete_name} created successfully")
 
+
 def clear_output_directory(path_to_save_files, file_name):
     files = os.listdir(path_to_save_files)
     for file in files:
@@ -103,9 +98,10 @@ def clear_output_directory(path_to_save_files, file_name):
             file_path = os.path.join(path_to_save_files, file)
             os.remove(file_path)
 
+
 def generate_records(args, schema_dict):
     logging.info('Starting to get the parameters')
-    prefix = args['file_prefix']
+    prefix = args['prefix']
     file_count = max(0, int(args['file_count']))
     path_to_save_files = args['path_to_save_files']
     file_name = args['file_name']
@@ -137,7 +133,8 @@ def generate_records(args, schema_dict):
         end = (i + 1) * files_per_process if i < file_count - 1 else file_count
 
         process = multiprocessing.Process(target=create_file,
-                                          args=(path_to_save_files, file_name, line_count, prefix, start, end, schema_dict))
+                                          args=(
+                                          path_to_save_files, file_name, line_count, prefix, start, end, schema_dict))
         processes.append(process)
         process.start()
 
@@ -145,20 +142,3 @@ def generate_records(args, schema_dict):
         process.join()
 
     logging.info("Output generated")
-
-if __name__ == '__main__':
-    config = configparser.ConfigParser()
-    config.read('default.ini')
-    defaults = config['default']
-
-    args_from_input = vars(parse_arguments())
-    args = dict(defaults)
-    args.update({k: v for k, v in args_from_input.items() if v is not None})
-
-    data_schema_from_input = args['data_schema']  # Pass the JSON string as an argument
-    schema_dict = load_schema(data_schema_from_input)
-
-    for k, v in args.items():
-        print(f"{k} : {v}")
-
-    generate_records(args, schema_dict)
