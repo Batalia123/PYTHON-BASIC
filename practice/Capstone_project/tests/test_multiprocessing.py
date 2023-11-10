@@ -1,12 +1,11 @@
 import sys
-from datetime import date
 
 import pytest
 import os
 
 sys.path.insert(1, '..')
 
-from parser import generate_records, load_schema
+from src.parser import generate_records, load_schema, clear_output_directory
 
 data_schemas_str = [
     """
@@ -33,11 +32,13 @@ def test_generate_records_with_different_data_schemas(tmpdir, data_schema_str, p
         'data_lines': 1,
         'file_count': 2,
         'file_name': 'file_name',
-        'file_prefix': 'random',
+        'prefix': 'random',
         'path_to_save_files': '../output/',
         'multiprocessing': 2,
         'clear_path': True
     }
+    clear_output_directory('../output', '')
+
     args_dict = load_schema(data_schema_fullpath)
     generate_records(args_from_input, args_dict)
 
@@ -45,6 +46,7 @@ def test_generate_records_with_different_data_schemas(tmpdir, data_schema_str, p
     number_of_files = len(os.listdir(folder_path))
 
     assert number_of_files == 2
+
 
 if __name__ == '__main__':
     pytest.main()

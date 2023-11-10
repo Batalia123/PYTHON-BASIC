@@ -33,3 +33,268 @@ INFO:root:Number of files is 0
 INFO:root:Writing output to terminal
 ERROR:root:head could not be converted to string
 INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Creating file: ../output/super_data194.json
+INFO:root:File ../output/super_data194.json created successfully
+INFO:root:Creating file: ../output/super_data522.json
+INFO:root:File ../output/super_data522.json created successfully
+INFO:root:Creating file: ../output/super_data754.json
+INFO:root:File ../output/super_data754.json created successfully
+INFO:root:Creating file: ../output/super_data972.json
+INFO:root:File ../output/super_data972.json created successfully
+INFO:root:Creating file: ../output/super_data426.json
+INFO:root:File ../output/super_data426.json created successfully
+INFO:root:Creating file: ../output/super_data979.json
+INFO:root:File ../output/super_data979.json created successfully
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Creating file: ../output/super_data646.json
+INFO:root:File ../output/super_data646.json created successfully
+INFO:root:Creating file: ../output/super_data465.json
+INFO:root:File ../output/super_data465.json created successfully
+INFO:root:Creating file: ../output/super_data589.json
+INFO:root:File ../output/super_data589.json created successfully
+INFO:root:Creating file: ../output/super_data361.json
+INFO:root:File ../output/super_data361.json created successfully
+INFO:root:Creating file: ../output/super_data136.json
+INFO:root:File ../output/super_data136.json created successfully
+INFO:root:Creating file: ../output/super_data99.json
+INFO:root:File ../output/super_data99.json created successfully
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Creating file: ../output/super_data1.json
+INFO:root:File ../output/super_data1.json created successfully
+INFO:root:Creating file: ../output/super_data2.json
+INFO:root:File ../output/super_data2.json created successfully
+INFO:root:Creating file: ../output/super_data3.json
+INFO:root:File ../output/super_data3.json created successfully
+INFO:root:Creating file: ../output/super_data1.json
+INFO:root:File ../output/super_data1.json created successfully
+INFO:root:Creating file: ../output/super_data2.json
+INFO:root:File ../output/super_data2.json created successfully
+INFO:root:Creating file: ../output/super_data3.json
+INFO:root:File ../output/super_data3.json created successfully
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+ERROR:root:Path to save files doesn't exist
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+ERROR:root:Path to save files doesn't exist
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 0
+INFO:root:Writing output to terminal
+ERROR:root:head could not be converted to string
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+ERROR:root:Path to save files doesn't exist
+INFO:root:Starting to get the parameters
+ERROR:root:Path to save files doesn't exist
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated
+INFO:root:Starting to get the parameters
+INFO:root:Parameters fetched
+INFO:root:Number of files is 3
+INFO:root:Number of processes to create the output files is 4
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Starting to create files
+INFO:root:Output generated

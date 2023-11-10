@@ -1,7 +1,8 @@
 import os
 import sys
-sys.path.insert(1, '..')
-from parser import create_file, clear_output_directory
+import pytest
+from src.parser import create_file, clear_output_directory
+
 
 def test_file_saving(tmpdir):
     temp_dir = tmpdir.mkdir("test_files")
@@ -22,3 +23,7 @@ def test_file_saving(tmpdir):
     clear_output_directory(path_to_save_files, file_name)
 
     assert not os.path.isfile(file_path)
+
+
+if __name__ == 'main':
+    pytest.main()

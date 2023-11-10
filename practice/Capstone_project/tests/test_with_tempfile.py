@@ -1,12 +1,7 @@
 import sys
-from datetime import date
-
 import pytest
-import os
+from src.parser import generate_records, load_schema
 
-sys.path.insert(1, '..')
-
-from parser import generate_records, load_schema
 
 data_schemas_str = [
     """
@@ -30,7 +25,7 @@ def test_generate_records_with_different_data_schemas(tmpdir, data_schema_str):
         'data_lines': 1,
         'file_count': 0,
         'file_name': 'file_name',
-        'file_prefix': 'random',
+        'prefix': 'random',
         'path_to_save_files': '../output/',
         'multiprocessing': 1,
         'clear_path': True
@@ -38,5 +33,6 @@ def test_generate_records_with_different_data_schemas(tmpdir, data_schema_str):
     args_dict = load_schema(data_schema_fullpath)
     generate_records(args_from_input, args_dict)
 
-if __name__ == '__main__':
+
+if __name__ == 'main':
     pytest.main()
